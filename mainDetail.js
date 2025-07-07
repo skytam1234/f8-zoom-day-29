@@ -26,12 +26,12 @@ async function renderDetail() {
                 <div class="product-images">
                     <img
                         class="main-image"
-                        src="${productDetail.images}"
+                        src="${productDetail.images[0]}"
                         alt="Essence Mascara Lash Princess"
                     />
                     <div class="image-gallery">
                         <img
-                            src="${productDetail.images}"
+                            src="${productDetail.images[0]}"
                             alt="Gallery 1"
                         />
                     </div>
