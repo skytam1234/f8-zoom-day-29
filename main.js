@@ -104,9 +104,7 @@ document.body.onclick = function (e) {
     path += `/${arr[i]}`;
   }
   const productItems = $$(".product-item");
-  console.log(
-    location.origin + path + `/detail.html` + `?${params}` + location.hash
-  );
+ 
   productItems.forEach((item) => {
     item.onclick = () => {
       const params = `i=${
