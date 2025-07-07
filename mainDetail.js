@@ -3,26 +3,26 @@ $$ = document.querySelectorAll.bind(document);
 const container = $(".container");
 
 async function send(method, url) {
-    const res = await fetch(url, { method });
-    if (!res.ok) throw new Error(`HTTP code:${(await res).status}`);
-    const type = (await res).headers.get(`content-type`);
-    const isJSON = type && type.includes(`application/json`);
-    try {
-        const result = isJSON ? await res.json() : await res.text();
-        return result;
-    } catch (error) {
-        throw new Error("Invalid JSON format");
-    }
+  const res = await fetch(url, { method });
+  if (!res.ok) throw new Error(`HTTP code:${(await res).status}`);
+  const type = (await res).headers.get(`content-type`);
+  const isJSON = type && type.includes(`application/json`);
+  try {
+    const result = isJSON ? await res.json() : await res.text();
+    return result;
+  } catch (error) {
+    throw new Error("Invalid JSON format");
+  }
 }
 async function renderDetail() {
-    const param = new URLSearchParams(location.search);
-    const Index = param.get("i");
-    const productDetail = await send(
-        "GET",
-        `https://dummyjson.com/products/${Index + 1}`
-    );
-    console.log(productDetail);
-    const html = `<div class="product-detail-container">
+  const param = new URLSearchParams(location.search);
+  const Index = param.get("i");
+  const productDetail = await send(
+    "GET",
+    `https://dummyjson.com/products/${Index}`
+  );
+  console.log(productDetail);
+  const html = `<div class="product-detail-container">
                 <div class="product-images">
                     <img
                         class="main-image"
@@ -43,26 +43,25 @@ async function renderDetail() {
                     <p>
                         <strong>Trạng thái:</strong>
                         <span class="in-stock">Còn hàng</span> (${
-                            productDetail.stock
+                          productDetail.stock
                         } sản phẩm)
                     </p>
 
                     <div class="price-section">
                         <span class="original-price">${
-                            productDetail.price
+                          productDetail.price
                         }$</span>
                         <span class="discounted-price">${(
-                            (Number(productDetail.price) *
-                                (100 -
-                                    Number(productDetail.discountPercentage))) /
-                            100
+                          (Number(productDetail.price) *
+                            (100 - Number(productDetail.discountPercentage))) /
+                          100
                         ).toFixed(2)}$</span>
                         <span class="discount">-${
-                            productDetail.discountPercentage
+                          productDetail.discountPercentage
                         }%</span>
                     </div>
                     <p><strong>Số lượng tối thiểu đặt hàng:</strong>${
-                        productDetail.minimumOrderQuantity
+                      productDetail.minimumOrderQuantity
                     }</p>
                     <p class="description">
                         ${productDetail.description}
@@ -74,10 +73,10 @@ async function renderDetail() {
                     <div class="specs">
                         <p>
                             <strong>Kích thước:</strong> ${
-                                productDetail.dimensions.width
+                              productDetail.dimensions.width
                             } x ${productDetail.dimensions.height} x ${
-        productDetail.dimensions.depth
-    }
+    productDetail.dimensions.depth
+  }
                             mm
                         </p>
                         <p><strong>Trọng lượng:</strong> 4g</p>
@@ -108,6 +107,6 @@ async function renderDetail() {
                     </div>
                 </div>
             </div>`;
-    container.innerHTML = html;
+  container.innerHTML = html;
 }
 renderDetail();
