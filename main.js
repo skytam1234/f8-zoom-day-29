@@ -97,6 +97,12 @@ pageList.onclick = function (e) {
   }
 };
 document.body.onclick = function (e) {
+  const oldPathName = location.pathname;
+  const arr = oldPathName.split("/");
+  const path = "";
+  for (let i = 0; i < arr.length - 1; i++) {
+    path += `/${arr[i]}`;
+  }
   const productItems = $$(".product-item");
   productItems.forEach((item) => {
     item.onclick = () => {
@@ -104,7 +110,7 @@ document.body.onclick = function (e) {
         Number(item.dataset.index) + 1 + (currentPage - 1) * numberInPage
       }`;
       location.href =
-        location.origin + `/detail.html` + `?${params}` + location.hash;
+        location.origin + path + `/detail.html` + `?${params}` + location.hash;
     };
   });
 };
