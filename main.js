@@ -44,9 +44,9 @@ async function renderProducts(startItemInPage, numberInPage) {
         startItemInPage + numberInPage
     );
     const html = dataProductPage
-        .map((product) => {
+        .map((product, index) => {
             return `<div class="col col-sm-12 col-md-4 col-xl-3 p-2">
-                            <div class="product-item w-100">
+                            <div class="product-item w-100" data-index=${index}>
                                 <div class="product-img">
                                     <img
                                         src='${product.images[0]}'
@@ -82,10 +82,9 @@ async function renderProducts(startItemInPage, numberInPage) {
         })
         .join("");
     listProduct.innerHTML = html;
-    console.log(dataProducts[0]);
 }
 renderProducts(startItemInPage, numberInPage);
-function togglePageActive() {}
+
 pageList.onclick = function (e) {
     const btnPage = e.target.closest(".page-num");
     if (btnPage && currentPage != Number(btnPage.dataset.index)) {
@@ -96,6 +95,18 @@ pageList.onclick = function (e) {
         startItemInPage = (currentPage - 1) * numberInPage;
         renderProducts(startItemInPage, numberInPage);
     }
+};
+document.body.onclick = function (e) {
+    const productItems = $$(".product-item");
+    productItems.forEach((item) => {
+        item.onclick = () => {
+            const params = `i=${
+                Number(item.dataset.index) + (currentPage - 1) * numberInPage
+            }`;
+            location.href =
+                location.origin + `/detail.html` + `?${params}` + location.hash;
+        };
+    });
 };
 
 function escapeHTML(html) {

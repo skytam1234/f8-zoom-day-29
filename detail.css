@@ -107,11 +107,6 @@ body {
     color: #555;
 }
 
-.qr-code {
-    width: 60px;
-    margin: 8px 0;
-}
-
 .rating {
     margin: 16px 0 8px 0;
     font-size: 1.1rem;
