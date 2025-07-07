@@ -99,11 +99,14 @@ pageList.onclick = function (e) {
 document.body.onclick = function (e) {
   const oldPathName = location.pathname;
   const arr = oldPathName.split("/");
-  const path = "";
+  let path = "";
   for (let i = 0; i < arr.length - 1; i++) {
     path += `/${arr[i]}`;
   }
   const productItems = $$(".product-item");
+  console.log(
+    location.origin + path + `/detail.html` + `?${params}` + location.hash
+  );
   productItems.forEach((item) => {
     item.onclick = () => {
       const params = `i=${
