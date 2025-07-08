@@ -21,112 +21,119 @@ const detailProductsManager = {
             "GET",
             `https://dummyjson.com/products/${Index}`
         );
-        console.log(productDetail);
         const html = `<div class="product-detail-container">
                   <div class="product-images">
                       <img
                           class="main-image"
-                          src="${productDetail.images[0]}"
+                          src="${this.escapeHTML(productDetail.images[0])}"
                           alt="Essence Mascara Lash Princess"
                       />
                       <div class="image-gallery">
                           <img
-                              src="${productDetail.images[0]}"
+                              src="${this.escapeHTML(productDetail.images[0])}"
                               alt="Gallery 1"
                           />
                       </div>
                   </div>
                   <div class="product-info">
-                      <h1>${productDetail.title}</h1>
-                      <p><strong>Thương hiệu:</strong> ${
+                      <h1>${this.escapeHTML(productDetail.title)}</h1>
+                      <p><strong>Thương hiệu:</strong> ${this.escapeHTML(
                           productDetail.brand
-                      }</p>
-                      <p><strong>Danh mục:</strong> ${
+                      )}</p>
+                      <p><strong>Danh mục:</strong> ${this.escapeHTML(
                           productDetail.category
-                      }</p>
+                      )}</p>
                       <p>
                           <strong>Trạng thái:</strong>
-                          <span class="in-stock">Còn hàng</span> (${
+                          <span class="in-stock">Còn hàng</span> (${this.escapeHTML(
                               productDetail.stock
-                          } sản phẩm)
+                          )} sản phẩm)
                       </p>
   
                       <div class="price-section">
-                          <span class="original-price">${
+                          <span class="original-price">${this.escapeHTML(
                               productDetail.price
-                          }$</span>
+                          )}$</span>
                           <span class="discounted-price">${(
-                              (Number(productDetail.price) *
+                              (Number(this.escapeHTML(productDetail.price)) *
                                   (100 -
                                       Number(
-                                          productDetail.discountPercentage
+                                          this.escapeHTML(
+                                              productDetail.discountPercentage
+                                          )
                                       ))) /
                               100
                           ).toFixed(2)}$</span>
-                          <span class="discount">-${
+                          <span class="discount">-${this.escapeHTML(
                               productDetail.discountPercentage
-                          }%</span>
+                          )}%</span>
                       </div>
-                      <p><strong>Số lượng tối thiểu đặt hàng:</strong>${
+                      <p><strong>Số lượng tối thiểu đặt hàng:</strong>${this.escapeHTML(
                           productDetail.minimumOrderQuantity
-                      }</p>
+                      )}</p>
                       <p class="description">
-                          ${productDetail.description}
+                          ${this.escapeHTML(productDetail.description)}
                       </p>
                       <div class="tags">
-                          <span class="tag">${productDetail.tags[0]}</span>
-                          <span class="tag">${productDetail.tags[1]}</span>
+                          <span class="tag">${this.escapeHTML(
+                              productDetail.tags[0]
+                          )}</span>
+                          <span class="tag">${this.escapeHTML(
+                              productDetail.tags[1]
+                          )}</span>
                       </div>
                       <div class="specs">
                           <p>
-                              <strong>Kích thước:</strong> ${
+                              <strong>Kích thước:</strong> ${this.escapeHTML(
                                   productDetail.dimensions.width
-                              } x ${productDetail.dimensions.height} x ${
-            productDetail.dimensions.depth
-        }
+                              )} x ${this.escapeHTML(
+            productDetail.dimensions.height
+        )} x ${this.escapeHTML(productDetail.dimensions.depth)}
                               mm
                           </p>
-                          <p><strong>Trọng lượng:</strong> ${
+                          <p><strong>Trọng lượng:</strong> ${this.escapeHTML(
                               productDetail.weight
-                          }g</p>
+                          )}g</p>
                       </div>
                       <div class="extra-info">
                           <p>
-                              <strong>Chính sách đổi trả:</strong> ${
+                              <strong>Chính sách đổi trả:</strong> ${this.escapeHTML(
                                   productDetail.returnPolicy
-                              }
+                              )}
                           </p>
-                          <p><strong>Bảo hành:</strong> ${
+                          <p><strong>Bảo hành:</strong> ${this.escapeHTML(
                               productDetail.warrantyInformation
-                          }</p>
+                          )}</p>
                           <p>
-                              <strong>Vận chuyển:</strong> ${
+                              <strong>Vận chuyển:</strong> ${this.escapeHTML(
                                   productDetail.shippingInformation
-                              }
+                              )}
                           </p>
                       </div>
                       <div class="meta">
                           <p><strong>Ngày tạo:</strong> ${this.convertDate(
-                              productDetail.meta.createdAt
+                              this.escapeHTML(productDetail.meta.createdAt)
                           )}</p>
                           <p><strong>Cập nhật:</strong> ${this.convertDate(
-                              productDetail.meta.updatedAt
+                              this.escapeHTML(productDetail.meta.updatedAt)
                           )}</p>
                       </div>
                       <div class="rating">
-                          <strong>Đánh giá:</strong> ${productDetail.rating} / 5
+                          <strong>Đánh giá:</strong> ${this.escapeHTML(
+                              productDetail.rating
+                          )} / 5
                       </div>
                       <div class="reviews">
                           <h3>Nhận xét</h3>
-                          <div class="review">${
+                          <div class="review">${this.escapeHTML(
                               productDetail.reviews[0].comment
-                          }</div>
-                          <div class="review">${
+                          )}</div>
+                          <div class="review">${this.escapeHTML(
                               productDetail.reviews[1].comment
-                          }</div>
-                          <div class="review">${
+                          )}</div>
+                          <div class="review">${this.escapeHTML(
                               productDetail.reviews[2].comment
-                          }</div>
+                          )}</div>
                       </div>
                   </div>
               </div>`;
@@ -138,6 +145,11 @@ const detailProductsManager = {
     },
     async start() {
         await this.renderDetail();
+    },
+    escapeHTML(html) {
+        const tempDiv = document.createElement("div");
+        tempDiv.textContent = html;
+        return tempDiv.innerHTML;
     },
 };
 detailProductsManager.start();

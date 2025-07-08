@@ -50,6 +50,9 @@ body {
     font-size: 2rem;
     color: #222;
 }
+.product-info p {
+    margin: 10px 0;
+}
 
 .in-stock {
     color: #27ae60;

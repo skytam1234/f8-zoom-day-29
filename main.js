@@ -89,10 +89,14 @@ const productsManager = {
         const html = this.dataProductPage
             .map((product, index) => {
                 return `<div class="col col-sm-12 col-md-4 col-xl-3 p-2">
-                              <div class="product-item w-100 h-100" data-index=${index}>
+                              <div class="product-item w-100 h-100" data-index=${this.escapeHTML(
+                                  index
+                              )}>
                                   <div class="product-img">
                                       <img
-                                          src='${product.images[0]}'
+                                          src='${this.escapeHTML(
+                                              product.images[0]
+                                          )}'
                                           alt="Tên sản phẩm"
                                       />
                                       <span class="discount-badge">${this.escapeHTML(
@@ -105,13 +109,19 @@ const productsManager = {
                                       </h3>
                                       <p class="product-price">
                                           <span class="original-price"
-                                              >${product.price}$</span
+                                              >${this.escapeHTML(
+                                                  product.price
+                                              )}$</span
                                           >
                                           ${(
-                                              (Number(product.price) *
+                                              (Number(
+                                                  this.escapeHTML(product.price)
+                                              ) *
                                                   (100 -
                                                       Number(
-                                                          product.discountPercentage
+                                                          this.escapeHTML(
+                                                              product.discountPercentage
+                                                          )
                                                       ))) /
                                               100
                                           ).toFixed(2)}$
