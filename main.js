@@ -89,7 +89,7 @@ const productsManager = {
         const html = this.dataProductPage
             .map((product, index) => {
                 return `<div class="col col-sm-12 col-md-4 col-xl-3 p-2">
-                              <div class="product-item w-100" data-index=${index}>
+                              <div class="product-item w-100 h-100" data-index=${index}>
                                   <div class="product-img">
                                       <img
                                           src='${product.images[0]}'
